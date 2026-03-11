@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indicco. — onde a indicação é real</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --azul: #1B2E6B;
+    --verde: #27AE60;
+    --areia: #F5F0E8;
+    --azul-claro: #EBF0FF;
+    --verde-claro: #E8F8EF;
+    --dourado: #C9A84C;
+    --cinza: #F3F4F6;
+    --texto: #1a1a2e;
+    --texto-suave: #4a5568;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--areia);
+    color: var(--texto);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(245, 240, 232, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(27, 46, 107, 0.08);
+  }
+
+  .nav-logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--azul);
+    letter-spacing: -0.5px;
+  }
+
+  .nav-logo span {
+    color: var(--verde);
+  }
+
+  .nav-cta {
+    background: var(--azul);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-cta:hover {
+    background: var(--verde);
+    transform: translateY(-1px);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+    background: var(--azul);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -150px; right: -150px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(39,174,96,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.9);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--verde);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-size: clamp(42px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: white;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-family: 'Lora', serif;
+    color: #6ee7a0;
+    font-weight: 500;
+    letter-spacing: -1px;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 40px;
+    font-weight: 400;
+    max-width: 460px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.35s;
+  }
+
+  .hero-form {
+    display: flex;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+
+  .hero-form input {
+    flex: 1;
+    padding: 16px 20px;
+    border: 2px solid rgba(27,46,107,0.15);
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    background: white;
+    color: var(--texto);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .hero-form input:focus {
+    border-color: var(--azul);
+  }
+
+  .hero-form input::placeholder {
+    color: #aab;
+  }
+
+  .btn-primary {
+    background: var(--azul);
+    color: white;
+    padding: 16px 28px;
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-primary:hover {
+    background: var(--verde);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(39,174,96,0.3);
+  }
+
+  .hero-note {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--texto-suave);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.6s;
+  }
+
+  /* ── HERO VISUAL ── */
+  .hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 0.4s;
+  }
+
+  .hero-card-main {
+    background: white;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 24px 80px rgba(27,46,107,0.12);
+    width: 100%;
+    max-width: 360px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .product-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .product-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: var(--azul-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .product-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--azul);
+    margin-bottom: 2px;
+  }
+
+  .product-brand {
+    font-size: 12px;
+    color: var(--texto-suave);
+  }
+
+  .card-pergunta {
+    background: var(--areia);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+
+  .card-pergunta p {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--azul);
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+
+  .card-pergunta p em {
+    font-style: italic;
+    font-family: 'Lora', serif;
+  }
+
+  .card-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .card-sim {
+    background: var(--verde);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .card-nao {
+    background: white;
+    color: var(--texto-suave);
+    border: 2px solid #eee;
+    border-radius: 10px;
+    padding: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .card-indicadora {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--azul), var(--verde));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .indicadora-info {
+    flex: 1;
+  }
+
+  .indicadora-nome {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--azul);
+  }
+
+  .badge-nivel {
+    display: inline-block;
+    background: var(--dourado);
+    color: white;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .floating-card {
+    position: absolute;
+    background: white;
+    border-radius: 16px;
+    padding: 14px 18px;
+    box-shadow: 0 12px 40px rgba(27,46,107,0.1);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--azul);
+    white-space: nowrap;
+  }
+
+  .float-1 {
+    top: -16px; right: -16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: float1 4s ease-in-out infinite;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(27,46,107,0.12);
+  }
+
+  .float-2 {
+    bottom: -16px; left: -16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: float2 4s ease-in-out infinite 0.5s;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(27,46,107,0.12);
+  }
+
+  .float-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--verde);
+  }
+
+  @keyframes float1 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes float2 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* ── PROBLEMA ── */
+  .section-problema {
+    background: var(--azul);
+    padding: 100px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-problema::before {
+    content: '"';
+    position: absolute;
+    top: -60px; left: 40px;
+    font-size: 400px;
+    font-family: 'Lora', serif;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .problema-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--verde);
+    margin-bottom: 20px;
+  }
+
+  .problema-inner h2 {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    max-width: 700px;
+    margin-bottom: 24px;
+  }
+
+  .problema-inner h2 em {
+    font-style: italic;
+    font-family: 'Lora', serif;
+    color: var(--verde);
+    font-weight: 400;
+  }
+
+  .problema-inner p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    max-width: 560px;
+    margin-bottom: 60px;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .stat-box {
+    background: rgba(255,255,255,0.04);
+    padding: 36px 32px;
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: background 0.3s;
+  }
+
+  .stat-box:hover {
+    background: rgba(255,255,255,0.08);
+  }
+
+  .stat-num {
+    font-size: 48px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-num span {
+    color: var(--verde);
+  }
+
+  .stat-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+  }
+
+  /* ── COMO FUNCIONA ── */
+  .section-como {
+    padding: 100px 48px;
+    background: var(--areia);
+  }
+
+  .como-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .como-inner > .section-label {
+    color: var(--verde);
+  }
+
+  .como-inner h2 {
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 800;
+    color: var(--azul);
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 60px;
+    max-width: 600px;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+
+  .step-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+    border: 1px solid rgba(27,46,107,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .step-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(27,46,107,0.08);
+  }
+
+  .step-num {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--azul-claro);
+    color: var(--azul);
+    font-size: 18px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .step-card.verde .step-num {
+    background: var(--verde-claro);
+    color: var(--verde);
+  }
+
+  .step-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--azul);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+
+  .step-card p {
+    font-size: 14px;
+    color: var(--texto-suave);
+    line-height: 1.6;
+  }
+
+  /* ── LISTA DE ESPERA ── */
+  .section-espera {
+    background: white;
+    padding: 100px 48px;
+  }
+
+  .espera-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .espera-inner .section-label {
+    justify-content: center;
+    display: flex;
+  }
+
+  .espera-inner h2 {
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 800;
+    color: var(--azul);
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .espera-inner h2 em {
+    font-style: italic;
+    font-family: 'Lora', serif;
+    color: var(--verde);
+    font-weight: 500;
+  }
+
+  .espera-inner > p {
+    font-size: 17px;
+    color: var(--texto-suave);
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .form-espera {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .form-espera input {
+    width: 100%;
+    padding: 18px 22px;
+    border: 2px solid rgba(27,46,107,0.12);
+    border-radius: 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    background: var(--areia);
+    color: var(--texto);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-espera input:focus {
+    border-color: var(--azul);
+    background: white;
+  }
+
+  .form-espera input::placeholder { color: #aab; }
+
+  .btn-espera {
+    width: 100%;
+    background: var(--azul);
+    color: white;
+    padding: 18px;
+    border-radius: 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-espera:hover {
+    background: var(--verde);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(39,174,96,0.25);
+  }
+
+  .form-note {
+    font-size: 13px;
+    color: var(--texto-suave);
+    margin-top: 10px;
+  }
+
+  /* ── DIVISOR ── */
+  .divisor {
+    padding: 60px 48px;
+    background: var(--areia);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .divisor-line {
+    flex: 1;
+    max-width: 200px;
+    height: 1px;
+    background: rgba(27,46,107,0.15);
+  }
+
+  .divisor-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--azul);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+
+  .divisor-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--texto-suave);
+    text-align: center;
+    line-height: 1.5;
+    max-width: 280px;
+  }
+
+  .divisor-text strong {
+    color: var(--azul);
+    display: block;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  /* ── FUNDADORAS ── */
+  .section-fundadoras {
+    background: var(--azul);
+    padding: 100px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-fundadoras::after {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(39,174,96,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .fundadoras-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .fund-left .section-label {
+    color: var(--dourado);
+  }
+
+  .fund-left h2 {
+    font-size: clamp(30px, 3.5vw, 46px);
+    font-weight: 800;
+    color: white;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .fund-left h2 em {
+    font-style: italic;
+    font-family: 'Lora', serif;
+    color: var(--dourado);
+    font-weight: 400;
+  }
+
+  .fund-left > p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+
+  .beneficios-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 0;
+  }
+
+  .beneficios-lista li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.5;
+  }
+
+  .beneficios-lista li::before {
+    content: '✦';
+    color: var(--dourado);
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .beneficios-lista li strong {
+    color: white;
+  }
+
+  /* ── FORM FUNDADORAS ── */
+  .fund-right {
+    position: relative;
+    z-index: 2;
+  }
+
+  .fund-form-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 24px;
+    padding: 40px;
+    backdrop-filter: blur(10px);
+  }
+
+  .vagas-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--dourado);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .vagas-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--dourado);
+    animation: pulse 2s infinite;
+  }
+
+  .fund-form-card h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .fund-form-card > p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .fund-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .fund-form input,
+  .fund-form select,
+  .fund-form textarea {
+    width: 100%;
+    padding: 15px 18px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    background: rgba(255,255,255,0.07);
+    color: white;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .fund-form input::placeholder,
+  .fund-form textarea::placeholder { color: rgba(255,255,255,0.35); }
+
+  .fund-form input:focus,
+  .fund-form select:focus,
+  .fund-form textarea:focus {
+    border-color: var(--dourado);
+    background: rgba(255,255,255,0.1);
+  }
+
+  .fund-form select {
+    cursor: pointer;
+    color: rgba(255,255,255,0.7);
+    appearance: none;
+  }
+
+  .fund-form select option {
+    background: var(--azul);
+    color: white;
+  }
+
+  .fund-form textarea {
+    resize: none;
+    height: 90px;
+  }
+
+  .btn-fundadora {
+    width: 100%;
+    background: var(--dourado);
+    color: white;
+    padding: 17px;
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+    margin-top: 4px;
+  }
+
+  .btn-fundadora:hover {
+    background: #b8923e;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(201,168,76,0.3);
+  }
+
+  .fund-disclaimer {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    margin-top: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--areia);
+    padding: 48px;
+    border-top: 1px solid rgba(27,46,107,0.08);
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--azul);
+    letter-spacing: -0.5px;
+  }
+
+  .footer-logo span { color: var(--verde); }
+
+  .footer-tagline {
+    font-size: 13px;
+    color: var(--texto-suave);
+    font-style: italic;
+    font-family: 'Lora', serif;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--texto-suave);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--azul); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* ── SUCCESS STATE ── */
+  .success-msg {
+    display: none;
+    background: var(--verde-claro);
+    border: 1px solid rgba(39,174,96,0.3);
+    border-radius: 14px;
+    padding: 20px 24px;
+    text-align: center;
+    color: var(--verde);
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+
+    .hero { padding: 100px 24px 60px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { display: flex; }
+
+    .section-problema,
+    .section-como,
+    .section-espera,
+    .section-fundadoras { padding: 72px 24px; }
+
+    .stats-row { grid-template-columns: 1fr; gap: 2px; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .fundadoras-inner { grid-template-columns: 1fr; gap: 48px; }
+
+    .hero-form { flex-direction: column; }
+    .btn-primary { width: 100%; }
+
+    .divisor { padding: 48px 24px; }
+    footer { padding: 36px 24px; }
+    .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+
+  /* ── HERO TEXTO ── */
+  .hero-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .hero-texto p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.7);
+  }
+  .hero-texto-sutil {
+    font-size: 15px !important;
+    color: rgba(255,255,255,0.55) !important;
+  }
+  .hero-pergunta {
+    font-size: 18px !important;
+    font-weight: 700;
+    color: white !important;
+    font-style: italic;
+    border-left: 3px solid #6ee7a0;
+    padding: 8px 0 8px 16px;
+    margin: 8px 0;
+  }
+
+  /* ── EXEMPLO CARD ── */
+  .exemplo-card {
+    background: white;
+    border-radius: 20px;
+    padding: 36px;
+    max-width: 620px;
+    margin: 0 auto;
+    box-shadow: 0 8px 40px rgba(27,46,107,0.10);
+    border: 1px solid rgba(27,46,107,0.07);
+  }
+  .exemplo-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .exemplo-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--azul);
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .exemplo-nome {
+    font-weight: 700;
+    color: var(--texto);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .badge-indicco100 {
+    font-size: 11px;
+    background: var(--azul-claro);
+    color: var(--azul);
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  .exemplo-data {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 2px;
+  }
+  .exemplo-produto-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--areia);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+  }
+  .exemplo-produto-icon {
+    font-size: 28px;
+  }
+  .exemplo-produto-nome {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--texto);
+  }
+  .exemplo-produto-cat {
+    font-size: 12px;
+    color: var(--texto-suave);
+    margin-top: 2px;
+  }
+  .exemplo-texto {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--texto);
+    font-style: italic;
+    border-left: 3px solid var(--verde);
+    padding-left: 18px;
+    margin-bottom: 24px;
+  }
+  .exemplo-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .exemplo-sim {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--verde);
+    background: var(--verde-claro);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .exemplo-tempo {
+    font-size: 12px;
+    color: #9ca3af;
+  }
+
+  /* ── FUND CONVITES ── */
+
+  .exemplo-curtidas {
+    font-size: 13px;
+    color: #9ca3af;
+  }
+  .exemplo-curtidas::before {
+    margin-right: 4px;
+  }
+
+  .fund-convites {
+    margin-top: 24px;
+    font-size: 15px;
+    color: var(--dourado);
+    font-weight: 600;
+  }
+
+  /* ── HERO VISUAL INTERATIVO ── */
+  .hero-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-pergunta-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 24px;
+    padding: 40px 36px;
+    width: 100%;
+    max-width: 420px;
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+
+  .hpc-produto {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .hpc-produto-icon {
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+
+  .hpc-produto-nome {
+    font-weight: 700;
+    color: white;
+    font-size: 15px;
+  }
+
+  .hpc-produto-cat {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 2px;
+  }
+
+  .hpc-pergunta {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.5;
+    margin-bottom: 28px;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+
+  .hpc-pergunta em {
+    color: #6ee7a0;
+    font-style: normal;
+  }
+
+  .hpc-botoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .hpc-sim, .hpc-nao {
+    padding: 16px;
+    border-radius: 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: none;
+    letter-spacing: 0.02em;
+  }
+
+  .hpc-sim {
+    background: var(--verde);
+    color: white;
+  }
+
+  .hpc-sim:hover {
+    background: #2ecc71;
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 12px 28px rgba(39,174,96,0.45);
+  }
+
+  .hpc-nao {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.6);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .hpc-nao:hover {
+    background: rgba(255,255,255,0.13);
+    color: rgba(255,255,255,0.85);
+    transform: translateY(-3px);
+  }
+
+  .hpc-resultado {
+    display: none;
+    text-align: center;
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    animation: fadeUp 0.4s ease forwards;
+  }
+
+  .hpc-resultado.sim {
+    background: rgba(39,174,96,0.15);
+    color: #6ee7a0;
+    border: 1px solid rgba(39,174,96,0.3);
+  }
+
+  .hpc-resultado.nao {
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .hpc-reset {
+    margin-top: 12px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.35);
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    display: block;
+    width: 100%;
+    text-align: center;
+    transition: color 0.2s;
+  }
+
+  .hpc-reset:hover { color: rgba(255,255,255,0.6); }
+
+  .hpc-indicacoes {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hpc-avatares {
+    display: flex;
+  }
+
+  .hpc-av {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--verde);
+    border: 2px solid rgba(27,46,107,1);
+    margin-left: -6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .hpc-av:first-child { margin-left: 0; background: #3b82f6; }
+  .hpc-av:nth-child(2) { background: var(--verde); }
+  .hpc-av:nth-child(3) { background: var(--dourado); }
+
+  .hpc-indicacoes-texto {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.4;
+  }
+
+  .hpc-indicacoes-texto strong {
+    color: rgba(255,255,255,0.75);
+  }
+
+</style>
+
+<!-- build:20260305150552:20260305145716:20260304205635 -->
+</head>
+<body>
+
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Indicco<span>.</span></div>
+</nav>
+
+<!-- SEÇÃO 1: HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">Em breve</div>
+      <h1>Indicações reais<br>para quem quer<br><em>escolher melhor.</em></h1>
+      <div class="hero-texto">
+        <p>A internet está cheia de notas, reviews e publicidade.<br>
+        Mas quando precisamos decidir de verdade, a confiança quase sempre vem de outro lugar:a indicação de alguém em quem confiamos.</p>
+        <p class="hero-texto-sutil">A gente percebe isso no dia a dia.<br>
+        Quando alguém pergunta: <em>"Você indicaria esse lugar?"</em> ou <em>"Esse produto é bom mesmo?"</em></p>
+        <p class="hero-texto-sutil">Existe uma pergunta ainda mais simples:</p>
+        <p class="hero-pergunta">Você indicaria isso para alguém que você gosta?</p>
+        <p class="hero-texto-sutil">No Indicco, tudo começa assim.<br>
+        Se alguém usou, gostou e indicaria a indicação entra na plataforma.<br>
+        Se não, ela simplesmente não aparece.</p>
+        <p class="hero-texto-sutil">Assim, o que você encontra no Indicco são indicações baseadas em experiência real.</p>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-pergunta-card">
+        <div class="hpc-produto">
+          <div class="hpc-produto-icon">👟</div>
+          <div>
+            <div class="hpc-produto-nome">Tênis Nimbus 25</div>
+            <div class="hpc-produto-cat">Corrida · Esportes</div>
+          </div>
+        </div>
+
+        <p class="hpc-pergunta">Você indicaria isso para alguém que você <em>gosta?</em></p>
+
+        <div class="hpc-botoes" id="hpc-botoes">
+          <button class="hpc-sim" onclick="hpcResponder('sim')">✓ &nbsp;Sim, indicaria</button>
+          <button class="hpc-nao" onclick="hpcResponder('nao')">✕ &nbsp;Não indicaria</button>
+        </div>
+
+        <div class="hpc-resultado sim" id="hpc-resultado-sim">
+          ✓ A indicação entra na plataforma.
+        </div>
+        <div class="hpc-resultado nao" id="hpc-resultado-nao">
+          A tela fecha. Nada é publicado.
+        </div>
+
+        <button class="hpc-reset" id="hpc-reset" onclick="hpcReset()" style="display:none;">↩ Tentar novamente</button>
+
+        <div class="hpc-indicacoes">
+          <div class="hpc-avatares">
+            <div class="hpc-av">M</div>
+            <div class="hpc-av">A</div>
+            <div class="hpc-av">R</div>
+          </div>
+          <div class="hpc-indicacoes-texto">
+            <strong>84 pessoas</strong> já indicaram esse produto
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SEÇÃO 2: EXEMPLO DE INDICAÇÃO -->
+<section class="section-como" id="exemplo">
+  <div class="como-inner">
+    <div class="section-label">Como funciona uma indicação no Indicco</div>
+    <h2>Indicações que contam a <em>experiência real</em> de quem usou.</h2>
+    <p style="color:var(--texto-suave); font-size:17px; max-width:580px; margin: 0 auto 48px; text-align:center; line-height:1.7;">No Indicco, indicações não são apenas notas ou estrelas.<br>Elas contam a experiência real de quem usou.</p>
+
+    <!-- CARD DE EXEMPLO -->
+    <div class="exemplo-card">
+      <div class="exemplo-card-header">
+        <div class="exemplo-avatar">A</div>
+        <div class="exemplo-usuario">
+          <div class="exemplo-nome">Ana Ribeiro <span class="badge-indicco100">🔵 Indicco 100</span></div>
+          <div class="exemplo-data">Indicação verificada</div>
+        </div>
+      </div>
+      <div class="exemplo-produto-row">
+        <div class="exemplo-produto-icon">👟</div>
+        <div>
+          <div class="exemplo-produto-nome">Tênis Nimbus 25</div>
+          <div class="exemplo-produto-cat">Corrida · Esportes</div>
+        </div>
+      </div>
+      <div class="exemplo-texto">
+        <p>"Corro cerca de 5 km três vezes por semana. Uso esse tênis há quase dois anos e ele continua confortável. Não sinto dor no calcanhar e a durabilidade me surpreendeu. Foi um dos poucos tênis de corrida que realmente funcionaram para mim."</p>
+      </div>
+      <div class="exemplo-footer">
+        <span class="exemplo-sim">✓ Indicaria para quem gosta</span>
+        <span class="exemplo-curtidas">♥ 84 pessoas curtiram essa indicação</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 3: INDICCO 100 -->
+<section class="section-fundadoras" id="indicco100">
+  <div class="fundadoras-inner">
+    <div class="fund-left">
+      <div class="section-label">Indicco 100</div>
+      <h2>Seja <em>Indicco 100.</em></h2>
+      <p>Antes do lançamento público, estamos convidando 100 pessoas para iniciar as primeiras indicações da plataforma.</p>
+      <ul class="beneficios-lista">
+        <li><strong>Badge especial</strong> dentro da plataforma</li>
+        <li><strong>Mais visibilidade</strong> nas primeiras indicações</li>
+        <li><strong>Destaque</strong> no início da rede</li>
+        <li><strong>Maior proximidade</strong> com marcas</li>
+        <li><strong>Participação</strong> na construção das primeiras indicações</li>
+      </ul>
+      <p class="fund-convites">✨ Abrindo os primeiros convites.</p>
+    </div>
+    <div class="fund-right">
+      <div class="fund-form-card">
+        <div class="vagas-badge">Convites limitados</div>
+        <h3>Seja Indicco 100</h3>
+
+        <form class="fund-form" id="form-indicco100"
+              onsubmit="enviarIndicco100(); return false;"
+              action="https://formspree.io/f/xpqyaeol"
+              method="POST">
+          <input type="hidden" name="_next" value="https://luxury-marzipan-a58f82.netlify.app/indicco.html?enviado=indicco100">
+          <input type="hidden" name="_language" value="pt">
+          <input type="text" id="f100-nome" name="nome" placeholder="Seu nome" required>
+          <input type="email" id="f100-email" name="email" placeholder="Seu e-mail" required>
+          <input type="text" id="f100-instagram" name="instagram" placeholder="Seu @ no Instagram (opcional)">
+          <select id="f100-nicho" name="nicho" required>
+            <option value="" disabled selected>Qual é o seu nicho principal?</option>
+            <option value="beleza">Beleza & Skincare</option>
+            <option value="saude">Saúde & Bem-estar</option>
+            <option value="moda">Moda & Estilo</option>
+            <option value="alimentacao">Alimentação & Nutrição</option>
+            <option value="casa">Casa & Organização</option>
+            <option value="outro">Outro</option>
+          </select>
+          <textarea id="f100-motivo" name="motivo" placeholder="Por que você indicaria o Indicco para alguém que você gosta? (2-3 linhas)"></textarea>
+          <button type="submit" class="btn-fundadora">Seja Indicco 100 ✦</button>
+        </form>
+        <div id="sucesso-indicco100" style="display:none; background:#E8F8EF; border-radius:14px; padding:24px; text-align:center; color:#27AE60; font-family:'Plus Jakarta Sans',sans-serif; margin-top:16px;">
+          <strong>✦ Candidatura recebida!</strong><br>Obrigada! Entraremos em contato em breve.
+        </div>
+        <p class="fund-disclaimer">Suas informações são tratadas com total privacidade.<br>Nunca compartilhamos dados individuais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 4: LISTA DE ESPERA -->
+<section class="section-espera" id="lista-espera">
+  <div class="espera-inner">
+    <div class="section-label">Lista de espera</div>
+    <h2>Quer usar o Indicco quando ele <em>lançar?</em></h2>
+    <p>Entre na lista de espera para ser avisado quando a plataforma estiver disponível. Assim você poderá explorar indicações feitas por pessoas reais e descobrir produtos, serviços e lugares que realmente valem a pena.</p>
+    <form class="form-espera" id="form-espera"
+          onsubmit="enviarEspera(); return false;"
+          action="https://formspree.io/f/mojkazpd"
+          method="POST">
+      <input type="hidden" name="_next" value="https://luxury-marzipan-a58f82.netlify.app/indicco.html?enviado=espera">
+      <input type="hidden" name="_language" value="pt">
+      <input type="text" id="esp-nome" name="nome" placeholder="Seu nome" required>
+      <input type="email" id="esp-email" name="email" placeholder="Seu melhor e-mail" required>
+      <button type="submit" class="btn-espera">Entrar na lista de espera →</button>
+    </form>
+    <div id="sucesso-espera" style="display:none; background:#E8F8EF; border-radius:14px; padding:24px; text-align:center; color:#27AE60; font-family:'Plus Jakarta Sans',sans-serif; margin-top:16px;">
+      <strong>🎉 Você está na lista!</strong><br>Te avisamos assim que o Indicco abrir.
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 5: FRASE FINAL -->
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-frase">Boas escolhas começam com indicações reais.</p>
+    <div class="footer-links">
+      <a href="https://instagram.com/indicco" target="_blank">@indicco</a>
+      <a href="#">Privacidade</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── CONFIG FORMSPREE ──
+  const FORMSPREE_INDICCO100 = 'https://formspree.io/f/xpqyaeol';
+  const FORMSPREE_ESPERA     = 'https://formspree.io/f/mojkazpd';
+
+  async function enviarFormspree(url, data) {
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const json = await res.json();
+      console.log('Formspree response:', res.status, json);
+      return res.ok;
+    } catch (e) {
+      console.error('Formspree error:', e);
+      return false;
+    }
+  }
+
+  // ── HERO EMAIL ──
+  async function submitHeroEmail() {
+    const email = document.getElementById('hero-email').value.trim();
+    if (!email || !email.includes('@')) {
+      alert('Coloca um e-mail válido pra gente te avisar 😊');
+      return;
+    }
+    const btn = document.querySelector('.hero-form .btn-primary');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+    await enviarFormspree(FORMSPREE_ESPERA, { email });
+    document.querySelector('.hero-form').innerHTML = '<p style="color:#27AE60; font-weight:700; font-size:16px;">🎉 Você está na lista! Te avisamos no lançamento.</p>';
+  }
+
+  // ── LISTA DE ESPERA ──
+  async function enviarEspera() {
+    const nome  = document.getElementById('esp-nome').value.trim();
+    const email = document.getElementById('esp-email').value.trim();
+    if (!nome || !email || !email.includes('@')) {
+      alert('Preenche nome e e-mail pra gente te avisar 😊');
+      return;
+    }
+    const btn = document.querySelector('#form-espera .btn-espera');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+    await enviarFormspree(FORMSPREE_ESPERA, { nome, email });
+    document.getElementById('form-espera').style.display = 'none';
+    document.getElementById('sucesso-espera').style.display = 'block';
+  }
+
+  // ── INDICCO 100 ──
+  async function enviarIndicco100() {
+    const nome      = document.getElementById('f100-nome').value.trim();
+    const email     = document.getElementById('f100-email').value.trim();
+    const instagram = document.getElementById('f100-instagram').value.trim();
+    const nicho     = document.getElementById('f100-nicho').value;
+    const motivo    = document.getElementById('f100-motivo').value.trim();
+    if (!nome || !email || !email.includes('@') || !nicho) {
+      alert('Preenche pelo menos nome, e-mail e nicho 😊');
+      return;
+    }
+    const btn = document.querySelector('#form-indicco100 .btn-fundadora');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+    await enviarFormspree(FORMSPREE_INDICCO100, { nome, email, instagram, nicho, motivo });
+    document.getElementById('form-indicco100').style.display = 'none';
+    document.getElementById('sucesso-indicco100').style.display = 'block';
+  }
+
+
+  // ── DETECTA RETORNO DO FORMSPREE ──
+  window.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const enviado = params.get('enviado');
+    if (enviado === 'indicco100') {
+      document.getElementById('form-indicco100').style.display = 'none';
+      document.getElementById('sucesso-indicco100').style.display = 'block';
+      document.getElementById('sucesso-indicco100').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    if (enviado === 'espera') {
+      document.getElementById('form-espera').style.display = 'none';
+      document.getElementById('sucesso-espera').style.display = 'block';
+      document.getElementById('sucesso-espera').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+  function hpcResponder(tipo) {
+    document.getElementById('hpc-botoes').style.display = 'none';
+    document.getElementById('hpc-reset').style.display = 'block';
+    if (tipo === 'sim') {
+      const el = document.getElementById('hpc-resultado-sim');
+      el.style.display = 'block';
+    } else {
+      const el = document.getElementById('hpc-resultado-nao');
+      el.style.display = 'block';
+    }
+  }
+
+  function hpcReset() {
+    document.getElementById('hpc-botoes').style.display = 'grid';
+    document.getElementById('hpc-reset').style.display = 'none';
+    document.getElementById('hpc-resultado-sim').style.display = 'none';
+    document.getElementById('hpc-resultado-nao').style.display = 'none';
+  }
+
+  // ── SCROLL ANIMATIONS ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
